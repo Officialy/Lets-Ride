@@ -1,15 +1,9 @@
 package mods.officialy.letsride;
 
 import com.mojang.logging.LogUtils;
-import mods.officialy.letsride.common.block.LRBlocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.BlockItem;
+import mods.officialy.letsride.init.LRBlocks;
+import mods.officialy.letsride.init.LRItems;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -18,11 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -39,6 +29,8 @@ public class LetsRide {
 
         LRBlocks.BLOCKS.register(modEventBus);
         LRBlocks.ITEMS.register(modEventBus);
+
+        LRItems.ITEMS.register(modEventBus);
         // Register the items to a creative tab
         modEventBus.addListener(this::addCreative);
     }
