@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "mods.officialy.letsride.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "Lets-Ride.refmap.json",
+  "refmap": "lets-ride.refmap.json",
   "mixins": [
   ],
   "client": [

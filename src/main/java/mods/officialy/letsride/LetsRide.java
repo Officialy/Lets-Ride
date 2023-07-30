@@ -6,7 +6,7 @@ import mods.officialy.letsride.init.LRItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,13 +39,11 @@ public class LetsRide {
 
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event)
-    {
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS){
-           /* for (var block : LRBlocks.BLOCKS.getEntries())
-            {
-                event.accept(block::get);
-            }*/
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            for (var block : LRBlocks.BLOCKS.getEntries()) {
+                event.accept(block); // Assumes that all blocks have an itemBlock, to be fixed later
+            }
         }
 
     }
@@ -55,8 +53,7 @@ public class LetsRide {
     public static class ClientModEvents {
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
 
         }
     }
