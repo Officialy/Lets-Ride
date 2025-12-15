@@ -4,15 +4,13 @@ import com.mojang.logging.LogUtils;
 import mods.officialy.letsride.init.LRBlocks;
 import mods.officialy.letsride.init.LRItems;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.javafmlmod.FMLModContainer;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -24,7 +22,7 @@ public class LetsRide {
 
     public LetsRide() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
 
         LRBlocks.BLOCKS.register(modEventBus);
@@ -39,22 +37,16 @@ public class LetsRide {
 
     }
 
+    /**
+     * Add items to the creative tab
+     * Use the item register, not the block register to prevent null {@link net.minecraft.world.item.BlockItem}s
+     */
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            for (var block : LRBlocks.BLOCKS.getEntries()) {
-                event.accept(block); // Assumes that all blocks have an itemBlock, to be fixed later
+            for (var block : LRBlocks.ITEMS.getEntries()) {
+                event.accept(block.get());
             }
         }
 
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-
-        }
     }
 }

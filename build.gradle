@@ -1,10 +1,3 @@
-ext {
-    mod_id          = "letsride"
-    mod_name        = "Let's Ride"
-    mod_group_id    = "mods.officialy.letsride"
-    mod_description = "Adds rollercoasters to Minecraft"
-}
-
 dependencies {
     // Dependencies unique to LetsRide
 }
