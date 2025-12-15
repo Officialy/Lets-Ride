@@ -7,8 +7,6 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.neoforged.fml.javafmlmod.FMLModContainer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.slf4j.Logger;
@@ -20,8 +18,7 @@ public class LetsRide {
     public static final String MODID = "letsride";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public LetsRide() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public LetsRide(IEventBus modEventBus) {
         NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
 
